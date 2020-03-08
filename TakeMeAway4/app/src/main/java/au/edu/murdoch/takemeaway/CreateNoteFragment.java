@@ -19,6 +19,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.view.View;
+import android.widget.ImageView;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -32,6 +39,9 @@ public class CreateNoteFragment extends Fragment {
 
     private View rootView;
     private TextView dateTextView;
+    private ImageView mimageView;
+    private static final int REQUEST_IMAGE_CAPTURE = 101;
+
 
     public static CreateNoteFragment newInstance(){
         Bundle args = new Bundle();
@@ -48,8 +58,29 @@ public class CreateNoteFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mimageView = findViewById(R.id.imageView);
     }
 
+    public void takePicture(View view)
+    {
+        Intent imageTakeIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        if(imageTakeIntent.resolveActivity(getPackageManager()) != null)
+        {
+            startActivityForResult(imageTakeIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            mimageView.setImageBitmap(imageBitmap);
+        }
+
+    }
 
     @Nullable
     @Override
@@ -75,10 +106,10 @@ public class CreateNoteFragment extends Fragment {
     private void onClickListeners(){
 
     }
-    @Override
+    /*@Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
 
-    }
+    }*/
 
     public interface LayoutFactory {
         View produceLayout(LayoutInflater inflater, @Nullable ViewGroup container);
