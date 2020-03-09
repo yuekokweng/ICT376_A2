@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "au.edu.murdoch.ict376.databasehelper"
-        minSdkVersion 26
+        minSdkVersion 23
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
