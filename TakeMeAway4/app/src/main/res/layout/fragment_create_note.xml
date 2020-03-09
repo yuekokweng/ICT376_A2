@@ -23,11 +23,19 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/newImage"
+                android:id="@+id/imageView"
                 app:layout_collapseMode="parallax"
                 android:scaleType="centerCrop"
                 android:src="@drawable/test1">
             </ImageView>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Take a Picture"
+                android:onClick="takePicture"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="55dp"/>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
